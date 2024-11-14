@@ -1,0 +1,16 @@
+<!-- book_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Form</title>
+</head>
+<body>
+    <h1>{{ form.instance.pk|yesno:"Edit Book,Add Book" }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{{ form.instance.pk|yesno:"Save Changes,Add Book" }}</button>
+    </form>
+</body>
+</html>
