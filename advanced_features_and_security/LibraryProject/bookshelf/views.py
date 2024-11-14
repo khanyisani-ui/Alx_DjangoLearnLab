@@ -91,3 +91,18 @@ def book_delete(request, pk):
         return redirect('book_list')
     return render(request, 'bookshelf/book_confirm_delete.html', {'book': book})
 
+#View to handle forms.py
+from django.shortcuts import render, redirect
+from .forms import ExampleForm
+
+def example_form_view(request):
+    if request.method == 'POST':
+        form = ExampleForm(request.POST)
+        if form.is_valid():
+            # Process the form data (e.g., save to database, send email, etc.)
+            # Redirect after successful form processing
+            return redirect('form_success')
+    else:
+        form = ExampleForm()
+    return render(request, 'bookshelf/form_example.html', {'form': form})
+
