@@ -130,4 +130,4 @@ LOGIN_REDIRECT_URL = '/'  # Redirect to homepage after login
 LOGOUT_REDIRECT_URL = '/'  # Redirect to homepage after logout
 
 # custom user model
-AUTH_USER_MODEL = 'relationship_app.CustomUser'
+AUTH_USER_MODEL = 'bookshelf.CustomUser'
