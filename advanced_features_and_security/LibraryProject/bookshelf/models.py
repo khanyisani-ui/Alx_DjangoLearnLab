@@ -55,4 +55,30 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+    
+#Custom permissions
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+class CustomUser(AbstractUser):
+    date_of_birth = models.DateField(null=True, blank=True)
+    profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
+
+class Article(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+    class Meta:
+        permissions = [
+            ("can_view", "Can view articles"),
+            ("can_create", "Can create articles"),
+            ("can_edit", "Can edit articles"),
+            ("can_delete", "Can delete articles"),
+        ]
+
+    def __str__(self):
+        return self.title
+
 
