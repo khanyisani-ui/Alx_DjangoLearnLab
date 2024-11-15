@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookshelf',
     'relationship_app',
-    'csp',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +49,6 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'csp.middleware.CSPMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -135,24 +133,23 @@ LOGOUT_REDIRECT_URL = '/'  # Redirect to homepage after logout
 # custom user model
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True  # Ensure all connections are HTTPS.
 
+# HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000  # Enforce HTTPS for 1 year.
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains.
+SECURE_HSTS_PRELOAD = True  # Allow the domain to be included in the HSTS preload list.
 
-# Security settings
-SECURE_BROWSER_XSS_FILTER = True
-X_FRAME_OPTIONS = 'DENY'
-SECURE_CONTENT_TYPE_NOSNIFF = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+# Cookies
+SESSION_COOKIE_SECURE = True  # Ensure session cookies are sent over HTTPS.
+CSRF_COOKIE_SECURE = True  # Ensure CSRF cookies are sent over HTTPS.
 
-# Content Security Policy (CSP)
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_STYLE_SRC = ("'self'", 'fonts.googleapis.com')
-CSP_SCRIPT_SRC = ("'self'", 'cdnjs.cloudflare.com')
+# Security Headers
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking.
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent MIME-sniffing.
+SECURE_BROWSER_XSS_FILTER = True  # Enable browser XSS filter.
 
-#Content Security Policy
-# Add to the existing settings
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_STYLE_SRC = ("'self'", 'fonts.googleapis.com')
-CSP_SCRIPT_SRC = ("'self'", 'cdnjs.cloudflare.com')
-
-
+# Additional security settings
+SECURE_REFERRER_POLICY = 'no-referrer-when-downgrade'  # Referrer policy for security.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Handle reverse proxy setup.
