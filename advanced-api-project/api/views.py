@@ -22,7 +22,7 @@ class BookListView(generics.ListAPIView):
     filterset_fields = ['title', 'author', 'publication_year']  # Fields to filter by
     search_fields = ['title', 'author']  # Fields to search by
     ordering_fields = ['title', 'publication_year']  # Fields to order by
-    ordering = ['title']  # Default ordering (ascending by title)
+    ordering = filters.OrderingFilter ['title']  # Default ordering (ascending by title)
 
 # Retrieve a specific book by ID (public access)
 class BookDetailView(generics.RetrieveAPIView):
@@ -55,4 +55,3 @@ class BookDeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]  # Only authenticated users can delete a book
-filters.Ordering 
