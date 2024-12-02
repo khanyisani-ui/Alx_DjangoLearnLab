@@ -121,7 +121,8 @@ class PostByTagListView(ListView):
     context_object_name = 'posts'
 
     def get_queryset(self):
-        tag = get_object_or_404(Tag, slug=self.kwargs.get('tag'))
+        tag_slug = self.kwargs.get('tag_slug')
+        tag = get_object_or_404(Tag, slug=tag_slug)
         return Post.objects.filter(tags__in=[tag])
 
 class SearchResultsView(ListView):
