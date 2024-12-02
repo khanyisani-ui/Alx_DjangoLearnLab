@@ -10,7 +10,10 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Post, Comment
 from django.urls import reverse_lazy
 from .forms import CommentForm
-
+from django.shortcuts import render
+from django.db.models import Q
+from .models import Post
+from .forms import SearchForm
 
 # User Registration View
 def register(request):
@@ -100,3 +103,13 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         comment = self.get_object()
         return self.request.user == comment.author
+    
+# Search Post Request
+def search_posts(request):
+    query = request.GET.get('query')
+    results = []
+    if query:
+        results = Post.objects.filter(
+            Q(title__icontains=query) | Q(content__icontains=query) | Q(tags__name__icontains=query)
+        ).distinct()
+    return render(request, 'blog/search_results.html', {'results': results, 'query': query})
