@@ -73,3 +73,29 @@ This project allows users to create, read, update, and delete (CRUD) blog posts.
 
 For further details, refer to the code comments and docstrings in the project files.
 
+
+# Django Blog Project
+
+## Features
+
+### User Authentication
+- User registration, login, and logout
+- Profile management
+
+### Blog Post Management
+- Create, read, update, and delete (CRUD) operations for blog posts
+- Only authenticated users can create, edit, or delete posts
+
+### Comment System
+- Users can add comments to blog posts
+- Only authenticated users can add comments
+- Comment authors can edit and delete their own comments
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/django_blog.git
+   cd django_blog
+
+
