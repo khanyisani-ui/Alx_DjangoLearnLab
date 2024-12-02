@@ -14,6 +14,7 @@ from django.shortcuts import render
 from django.db.models import Q
 from .models import Post
 from .forms import SearchForm
+from taggit.models import Tag
 
 # User Registration View
 def register(request):
@@ -113,3 +114,21 @@ def search_posts(request):
             Q(title__icontains=query) | Q(content__icontains=query) | Q(tags__name__icontains=query)
         ).distinct()
     return render(request, 'blog/search_results.html', {'results': results, 'query': query})
+
+class PostByTagListView(ListView):
+    model = Post
+    template_name = 'blog/posts_by_tag.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        tag = get_object_or_404(Tag, slug=self.kwargs.get('tag'))
+        return Post.objects.filter(tags__in=[tag])
+
+class SearchResultsView(ListView):
+    model = Post
+    template_name = 'blog/search_results.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        return Post.objects.filter(content__icontains=query)

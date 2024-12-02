@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <h2>Posts tagged with "{{ view.kwargs.tag }}"</h2>
+    {% for post in posts %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{% url 'post-detail' post.pk %}">{{ post.title }}</a>
+                    <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                </div>
+                <p class="article-content">{{ post.content|slice:":200" }}...</p>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock %}
