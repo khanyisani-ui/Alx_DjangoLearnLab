@@ -4,12 +4,13 @@ from django.contrib.auth import views as auth_views
 from .views import (
     PostListView,
     PostDetailView,
-    add_comment_to_post,
-    edit_comment, delete_comment,
     PostCreateView,
     PostUpdateView,
     PostDeleteView,
     UserPostListView,
+    CommentCreateView,
+    CommentUpdateView, 
+    CommentDeleteView,
     PostByTagListView,
     SearchResultsView
 )
@@ -22,9 +23,9 @@ urlpatterns = [
     path('post/new/', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
-    path('post/<int:pk>/comment/new/', add_comment_to_post, name='add-comment'),
-    path('comment/<int:pk>/edit/', edit_comment, name='edit-comment'),
-    path('comment/<int:pk>/delete/', delete_comment, name='delete-comment'),
+    path('post/<int:pk>/comments/new/', CommentCreateView.as_view(), name='add-comment'),
+    path('comment/<int:pk>/update/', CommentUpdateView.as_view(), name='edit-comment'),
+    path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='delete-comment'),
     path('about/', views.about, name='blog-about'),
     path('tags/<slug:tag_slug>/', PostByTagListView.as_view(), name='post-by-tag'),
     path('search/', SearchResultsView.as_view(), name='search-results'),
